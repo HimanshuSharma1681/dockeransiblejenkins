@@ -35,22 +35,7 @@ pipeline{
                 sh "docker build . -t 28071989/devops-ansible:${DOCKER_TAG} "
             }
         }
-        
-        stage('DockerHub Push'){
-            steps{
-                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
-                    sh "docker login -u 28071989 -p ${dockerHubPwd}"
-                }
-                
-                sh "docker push 28071989/devops-ansible:${DOCKER_TAG} "
-            }
-        }
-        
-        stage('Docker Deploy'){
-            steps{
-              ansiblePlaybook credentialsId: 'dev-server', disableHostKeyChecking: true, extras: "-e DOCKER_TAG=${DOCKER_TAG}", installation: 'ansible', inventory: 'dev.inv', playbook: 'deploy-docker.yml'
-            }
-        }
+      
     }
 }
 
