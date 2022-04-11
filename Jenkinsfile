@@ -5,9 +5,11 @@ pipeline{
       args '-v /root/.m2:/root/.m2'
     }
   }
-    environment {
-      DOCKER_TAG = getVersion()
-    }
+  environment{
+     imageName = "28071989/devops-ansible"
+     registryCredential = 'dockerhubcpad'
+     dockerImage =''
+  }
     stages{
         
          stage('Build'){
@@ -32,14 +34,11 @@ pipeline{
      
         stage('Docker Build'){
             steps{
-                sh "docker build . -t 28071989/devops-ansible:${DOCKER_TAG} "
+                dockerImage = docker.build imageName
             }
         }
       
     }
 }
 
-def getVersion(){
-      def tag = sh script: 'git rev-parse HEAD', returnStdout: true
-        return tag
-}
+
