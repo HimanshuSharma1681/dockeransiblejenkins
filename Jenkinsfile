@@ -7,13 +7,7 @@ pipeline{
       DOCKER_TAG = getVersion()
     }
     stages{
-        stage('SCM'){
-            steps{
-                git credentialsId: 'github', 
-                    url: 'https://github.com/javahometech/dockeransiblejenkins'
-            }
-        }
-        
+       
         stage('Maven Build'){
             steps{
                 sh "mvn clean package"
@@ -22,17 +16,17 @@ pipeline{
         
         stage('Docker Build'){
             steps{
-                sh "docker build . -t kammana/hariapp:${DOCKER_TAG} "
+                sh "docker build . -t 28071989/devops-ansible:${DOCKER_TAG} "
             }
         }
         
         stage('DockerHub Push'){
             steps{
                 withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerHubPwd')]) {
-                    sh "docker login -u kammana -p ${dockerHubPwd}"
+                    sh "docker login -u 28071989 -p ${dockerHubPwd}"
                 }
                 
-                sh "docker push kammana/hariapp:${DOCKER_TAG} "
+                sh "docker push 28071989/devops-ansible:${DOCKER_TAG} "
             }
         }
         
