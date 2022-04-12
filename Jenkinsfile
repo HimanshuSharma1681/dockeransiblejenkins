@@ -6,7 +6,7 @@ pipeline{
     }
   }
   environment{
-     imageName = "28071989/devops-ansible"
+     imageName = "28071989/devops-ansible" 
      registryCredential = 'dockerhubcpad'
      dockerImage =''
   }
@@ -26,9 +26,7 @@ pipeline{
         }
        
      }
-       
-     
-    stage('Building image') {
+     stage('Building image') {
       steps{
         script {
           dockerImage = docker.build imageName
