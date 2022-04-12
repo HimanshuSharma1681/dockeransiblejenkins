@@ -6,7 +6,7 @@ pipeline{
     }
   }
   environment{
-     imageName = "28071989/devops-ansible" 
+     imageName = "28071989/devops-assign" 
      registryCredential = 'dockerhubcpad'
      dockerImage =''
   }
